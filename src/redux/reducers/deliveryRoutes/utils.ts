@@ -1,6 +1,3 @@
-import { IDeliveryPoint } from './types';
+import { IDeliveryRoute } from './types';
 
-export const getRouteId = ({ from, to }: {
-  from: IDeliveryPoint['id'];
-  to: IDeliveryPoint['id'];
-}) => `${from}_${to}`;
+export const getRouteId = ({ from, to }: Omit<IDeliveryRoute, 'weight'>) => `${from}_${to}`;
