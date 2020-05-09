@@ -1,5 +1,8 @@
+import mainReducer from '../index';
+import { addDeliveryPoint } from './actions';
 import testInitialState from './exampleData';
-import { getDeliveryCostForRoute } from './selectors';
+import { getDeliveryCostForRoute, getPointsAsArray } from './selectors';
+import { IDeliveryPoint } from './types';
 
 describe('delivery routes selectors', () => {
   test('getDeliveryCostForRoute', () => {
@@ -16,6 +19,26 @@ describe('delivery routes selectors', () => {
 
       expect<ReturnType<typeof getDeliveryCostForRoute>>(result).toEqual(weight);
     });
+  });
+
+  test('getPointsAsArray', () => {
+    const firstPoint = {
+      id: 'A',
+      name: 'A',
+    };
+    const secondPoint = {
+      id: 'B',
+      name: 'B',
+    };
+
+    // @ts-ignore
+    let state = mainReducer(undefined, { type: '' });
+    // @ts-ignore
+    state = mainReducer(state, addDeliveryPoint(secondPoint));
+    // @ts-ignore
+    state = mainReducer(state, addDeliveryPoint(firstPoint));
+
+    expect<IDeliveryPoint[]>(getPointsAsArray(state)).toEqual([secondPoint, firstPoint]);
   });
 });
 

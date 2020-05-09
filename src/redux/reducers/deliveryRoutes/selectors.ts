@@ -1,7 +1,17 @@
+import { createSelector } from 'reselect';
+import { IState } from '../../store';
 import { IDeliveryPoint, IDeliveryRoutesState } from './types';
 import { getRouteId } from './utils';
 
-// try to keep reselect signature just in case we will use it
+const getPoints = createSelector<IState, IState['deliveryRoutes']['points'], IState['deliveryRoutes']['points']>(
+  ({ deliveryRoutes }) => deliveryRoutes.points,
+  points => points,
+);
+
+export const getPointsAsArray = createSelector<IState, ReturnType<typeof getPoints>, IDeliveryPoint[]>(
+  getPoints,
+  points => Object.values(points),
+);
 
 export const getDeliveryCostForRoute = (state: IDeliveryRoutesState, ownProps: {
   route: IDeliveryPoint['id'][];
