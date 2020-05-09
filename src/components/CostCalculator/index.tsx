@@ -1,5 +1,7 @@
-import React, { FC } from 'react';
+import React, { ComponentProps, FC, useCallback } from 'react';
+import { ICostCalculatorPoint } from '../../redux/reducers/costCalculator/types';
 import { IDeliveryPoint } from '../../redux/reducers/deliveryRoutes/types';
+import BaseDeliveryRoute from './DeliveryRoute';
 import {
   Container,
   DeliveryPoint,
@@ -8,20 +10,37 @@ import {
   Subtext,
 } from './styled';
 
-type ICostCalculator = {
-  routes: IDeliveryPoint[];
-};
+type ICostCalculatorProps = {
+  routes: (ICostCalculatorPoint & { weight: number | null })[];
+  points: IDeliveryPoint[];
+  result: number | null;
+  error: string;
+  onAdd: (args: { pointId: IDeliveryPoint['id'] }) => void;
+} & Pick<ComponentProps<typeof BaseDeliveryRoute>, 'onChange' | 'onInsert' | 'onRemove'>;
 
-const partRoutes = [{
-  point: null,
-  weight: null,
-}, {
-  point: null,
-  weight: null,
-}] as const;
+const CostCalculator: FC<ICostCalculatorProps> = props => {
+  const {
+    points,
+    routes,
+    result,
+    error,
+    onAdd,
+    onChange,
+    onInsert,
+    onRemove,
+  } = props;
 
-const CostCalculator: FC<ICostCalculator> = props => {
-  const { routes } = props;
+  const onPointAdd = useCallback(({ pointId }) => onAdd({ pointId }),[onAdd]);
+
+  let content;
+
+  if (routes.length < 2) {
+    content = 'Please, choose at least one route to calculate delivery cost';
+  } else if (error) {
+    content = error;
+  } else {
+    content = `Delivery cost for provided route is ${result}`;
+  }
 
   return (
     <Container>
@@ -29,24 +48,30 @@ const CostCalculator: FC<ICostCalculator> = props => {
         Delivery cost calculator
       </Title>
       <RouteWrapper>
-        {partRoutes.map(({ point }, index) => (
+        {routes.map(({ id, pointId, weight }, index) => (
           <DeliveryPoint
-            key={index}
+            key={id}
+            routeId={id}
             isRemovable
             canBeSeparated
             isRouteShown={index !== 0}
-            points={[]}
-            pointId={point}
-            weight={1}
-            order={1}
-            onChange={() => undefined}
-            onInsert={() => undefined}
-            onRemove={() => undefined}
+            points={points}
+            pointId={pointId}
+            weight={weight}
+            onChange={onChange}
+            onInsert={onInsert}
+            onRemove={onRemove}
           />
         ))}
+        <DeliveryPoint
+          isRouteShown={routes.length !== 0}
+          points={points}
+          pointId={null}
+          onChange={onPointAdd}
+        />
       </RouteWrapper>
-      <Subtext>
-        Please, choose at least one route to calculate delivery cost
+      <Subtext isError={!!error}>
+        {content}
       </Subtext>
     </Container>
   );

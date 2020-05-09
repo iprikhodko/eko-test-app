@@ -1,4 +1,5 @@
 import React, { ComponentProps, PureComponent } from 'react';
+import { ICostCalculatorPoint } from '../../../redux/reducers/costCalculator/types';
 import { IDeliveryPoint } from '../../../redux/reducers/deliveryRoutes/types';
 import BaseSelect from '../../Select';
 import BaseDeliveryRoute from '../DeliveryRoute';
@@ -13,50 +14,68 @@ import {
 type IDeliveryPointProps = {
   pointId: IDeliveryPoint['id'] | null;
   points: IDeliveryPoint[];
-  weight: number;
-  order: number;
   isRouteShown?: boolean;
-  isRemovable?: boolean;
   canBeSeparated?: boolean;
-  onChange: (args: {
-    pointId: string | number | null;
-    order: number;
+  routeId?: ICostCalculatorPoint['id'];
+  weight?: number | null;
+  isRemovable?: boolean;
+  onChange?: (args: {
+    pointId: ICostCalculatorPoint['pointId'];
+    id: ICostCalculatorPoint['id'];
   }) => void;
-  onInsert: (args: {
-    order: number;
+  onInsert?: (args: {
+    nextId: ICostCalculatorPoint['id'];
   }) => void;
-  onRemove: (args: {
-    order: number;
+  onRemove?: (args: {
+    id: ICostCalculatorPoint['id'];
   }) => void;
 };
 
 class DeliveryPoint extends PureComponent<IDeliveryPointProps> {
   onChange: ComponentProps<typeof BaseSelect>['onChange'] = pointId => {
-    const { order } = this.props;
+    const { routeId = '', onChange } = this.props;
 
-    this.props.onChange({
+    if (!onChange) {
+      return;
+    }
+
+    onChange({
+      id: routeId,
       pointId,
-      order,
     });
   };
 
-  onInsert: ComponentProps<typeof BaseDeliveryRoute>['onPointAdd'] = order =>
-    this.props.onInsert({ order });
+  onInsert: ComponentProps<typeof BaseDeliveryRoute>['onPointAdd'] = () => {
+    const { routeId = '', onInsert } = this.props;
+
+    if (!onInsert) {
+      return;
+    }
+
+    onInsert({
+      nextId: routeId,
+    });
+  };
 
   onRemove = () => {
-    const { order } = this.props;
+    const { routeId = '', onRemove } = this.props;
 
-    this.props.onRemove({ order });
+    if (!onRemove) {
+      return;
+    }
+
+    onRemove({ id: routeId });
   };
 
   render() {
     const {
+      routeId,
       pointId,
       points,
-      order,
       isRouteShown,
       isRemovable,
       canBeSeparated,
+      weight,
       onChange,
       onInsert,
       ...otherProps
@@ -66,7 +85,8 @@ class DeliveryPoint extends PureComponent<IDeliveryPointProps> {
       <Container {...otherProps}>
         {isRouteShown && (
           <DeliveryRoute
-            order={order}
+            weight={weight}
+            isIncluded={!!routeId}
             canBeSeparated={canBeSeparated}
             onPointAdd={this.onInsert}
           />

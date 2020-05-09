@@ -1,33 +1,33 @@
-import React, { ComponentProps, FC, useCallback } from 'react';
+import React, { ComponentProps, FC } from 'react';
 import {
   Container,
   LeftArrowLine,
   SeparateIcon,
   RightArrowLine,
+  Weight,
 } from './styled';
 
 type IDeliveryRouteProps = {
-  order: number;
+  weight: number | null;
   onPointAdd: (order: number) => void;
 } & ComponentProps<typeof Container>;
 
 const DeliveryRoute: FC<IDeliveryRouteProps> = props => {
   const {
-    order,
     canBeSeparated,
+    weight,
     onPointAdd,
     ...otherProps
   } = props;
-
-  const onClick = useCallback(() => onPointAdd(order), [order, onPointAdd]);
 
   return (
     <Container
       {...otherProps}
       title="Add delivery point"
       canBeSeparated={canBeSeparated}
-      onClick={canBeSeparated ? onClick : undefined}
+      onClick={canBeSeparated ? onPointAdd : undefined}
     >
+      <Weight>{weight}</Weight>
       <LeftArrowLine />
       <SeparateIcon />
       <RightArrowLine />

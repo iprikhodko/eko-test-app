@@ -19,7 +19,7 @@ export const RouteWrapper = styled.div`
 
 export const DeliveryPoint = styled(BaseDeliveryPoint)``;
 
-export const Subtext = styled.div`
+export const Subtext = styled.div<{ isError: boolean }>`
   margin-top: 10px;
-  color: #666;
+  color: ${({ isError }) => isError ? '#f0506e' : '#666'};
 `;
