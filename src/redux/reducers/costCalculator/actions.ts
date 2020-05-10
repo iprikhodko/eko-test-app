@@ -41,4 +41,11 @@ type IChangePointAction = {
 }
 export const changeDeliveryPoint = createAction<IChangePointAction['payload']>(ACTIONS.COST_CALCULATOR_CHANGE_POINT);
 
-export type ICostCalculatorActions = IAddPointAction | IInsertPointAction | IRemovePointAction | IChangePointAction;
+
+type IResetRouteAction = {
+  type: typeof ACTIONS.COST_CALCULATOR_RESET_ROUTE,
+}
+export const resetDeliveryRoute = createAction(ACTIONS.COST_CALCULATOR_RESET_ROUTE);
+
+
+export type ICostCalculatorActions = IAddPointAction | IInsertPointAction | IRemovePointAction | IChangePointAction | IResetRouteAction;

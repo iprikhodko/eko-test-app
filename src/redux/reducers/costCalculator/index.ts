@@ -99,6 +99,13 @@ const costCalculatorReducer: Reducer<ICostCalculatorState, ICostCalculatorAction
         },
       };
     }
+    case ACTIONS.COST_CALCULATOR_RESET_ROUTE: {
+      return {
+        ...state,
+        ids: [],
+        data: {},
+      };
+    }
     default: {
       return state;
     }

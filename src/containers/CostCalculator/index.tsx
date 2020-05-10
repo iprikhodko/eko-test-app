@@ -5,6 +5,7 @@ import {
   addDeliveryPoint as onAdd,
   changeDeliveryPoint as onChange,
   removeDeliveryPoint as onRemove,
+  resetDeliveryRoute as onReset,
 } from '../../redux/reducers/costCalculator/actions';
 import { getPointsAsArray } from '../../redux/reducers/deliveryRoutes/selectors';
 import {
@@ -26,6 +27,7 @@ const mapDispatchToProps = {
   onInsert,
   onChange,
   onRemove,
+  onReset,
 };
 
 const CostCalculatorContainer = connect(mapStateToProps, mapDispatchToProps)(CostCalculator);

@@ -9,9 +9,10 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
   
-  input, select {
+  input, select, button {
     background: transparent;
     border: none;
+    outline: 0;
     padding: 0;
   }
 `;

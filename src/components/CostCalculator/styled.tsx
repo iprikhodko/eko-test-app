@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Button from '../Button';
 import BaseDeliveryPoint from './DeliveryPoint';
 
 export const Container = styled.div`
@@ -18,6 +19,10 @@ export const RouteWrapper = styled.div`
 `;
 
 export const DeliveryPoint = styled(BaseDeliveryPoint)``;
+
+export const ResetButton = styled(Button)`
+  margin-left: 10px;
+`;
 
 export const Subtext = styled.div<{ isError: boolean }>`
   margin-top: 15px;

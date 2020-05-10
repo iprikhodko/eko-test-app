@@ -4,7 +4,7 @@ import {
   changeDeliveryPoint,
   ICostCalculatorActions,
   insertDeliveryPoint,
-  removeDeliveryPoint,
+  removeDeliveryPoint, resetDeliveryRoute,
 } from './actions';
 import { ICostCalculatorPoint, ICostCalculatorState } from './types';
 
@@ -119,6 +119,16 @@ describe('costCalculatorReducer', () => {
           pointId,
         },
       },
+    });
+  });
+
+  test('COST_CALCULATOR_RESET_ROUTE', () => {
+    const state = costCalculatorReducer(initialState, resetDeliveryRoute() as ICostCalculatorActions);
+
+    expect<ICostCalculatorState>(state).toEqual({
+      ...initialState,
+      ids: [],
+      data: {},
     });
   });
 });

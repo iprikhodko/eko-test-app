@@ -97,7 +97,7 @@ class DeliveryPoint extends PureComponent<IDeliveryPointProps> {
             value={pointId}
             options={points}
             isEmptyValueAllowed={!routeId}
-            emptyValueText="Select point"
+            emptyValueText={routeId ? 'Select point' : 'Add point'}
             onChange={this.onChange}
           />
           {isRemovable && (

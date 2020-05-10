@@ -8,6 +8,7 @@ import {
   Title,
   RouteWrapper,
   Subtext,
+  ResetButton,
 } from './styled';
 
 type ICostCalculatorProps = {
@@ -16,6 +17,7 @@ type ICostCalculatorProps = {
   result: number | null;
   error: string;
   onAdd: (args: { pointId: IDeliveryPoint['id'] }) => void;
+  onReset: () => void;
 } & Pick<ComponentProps<typeof BaseDeliveryRoute>, 'onChange' | 'onInsert' | 'onRemove'>;
 
 const CostCalculator: FC<ICostCalculatorProps> = props => {
@@ -28,6 +30,7 @@ const CostCalculator: FC<ICostCalculatorProps> = props => {
     onChange,
     onInsert,
     onRemove,
+    onReset,
   } = props;
 
   const onPointAdd = useCallback(({ pointId }) => onAdd({ pointId }),[onAdd]);
@@ -69,6 +72,12 @@ const CostCalculator: FC<ICostCalculatorProps> = props => {
           pointId={null}
           onChange={onPointAdd}
         />
+        <ResetButton
+          type="button"
+          onClick={onReset}
+        >
+          Reset
+        </ResetButton>
       </RouteWrapper>
       <Subtext isError={!!error}>
         {content}
