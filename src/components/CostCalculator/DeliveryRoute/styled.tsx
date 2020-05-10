@@ -21,7 +21,7 @@ export const Weight = styled.div`
   display: inline-block;
   left: 50%;
   position: absolute;
-  top: 0;
+  top: -8px;
   transform: translateX(-50%);
 `;
 

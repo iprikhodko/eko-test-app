@@ -4,7 +4,6 @@ import BaseDeliveryPoint from './DeliveryPoint';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 40px;
 `;
 
 export const Title = styled.div`
@@ -14,12 +13,13 @@ export const Title = styled.div`
 
 export const RouteWrapper = styled.div`
   display: flex;
-  margin-top: 15px;
+  flex-wrap: wrap;
+  margin-top: 20px;
 `;
 
 export const DeliveryPoint = styled(BaseDeliveryPoint)``;
 
 export const Subtext = styled.div<{ isError: boolean }>`
-  margin-top: 10px;
+  margin-top: 15px;
   color: ${({ isError }) => isError ? '#f0506e' : '#666'};
 `;

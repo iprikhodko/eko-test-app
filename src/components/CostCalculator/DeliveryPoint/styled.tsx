@@ -21,9 +21,10 @@ export const DeliveryRoute = styled(BaseDeliveryRoute)`
 `;
 
 export const SelectWrapper = styled.div`
-  position: relative;
-  padding: 10px;
+  margin-top: -10px;
+  padding: 10px 10px 0;
   padding-left: 0;
+  position: relative;
   
   &:hover ${RemoveIcon} {
     display: block;
@@ -31,7 +32,7 @@ export const SelectWrapper = styled.div`
 `;
 
 export const Container = styled.div`
-  display: flex;
+  display: inline-flex;
 
   ${DeliveryRoute} + ${SelectWrapper} {
     padding-left: 10px;

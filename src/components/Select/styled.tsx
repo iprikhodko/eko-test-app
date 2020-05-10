@@ -16,6 +16,7 @@ export const NativeSelect = styled.select`
 export const NativeOption = styled.option``;
 
 export const CustomSelect = styled.div`
+  align-items: center;
   border: solid 1px #e5e5e5;
   border-radius: 2px;
   display: flex;
@@ -23,6 +24,7 @@ export const CustomSelect = styled.div`
   height: 100%;
   padding: 5px 10px;
   width: 100%;
+  white-space: nowrap;
 `;
 
 export const Value = styled.div`

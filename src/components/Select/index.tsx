@@ -24,11 +24,19 @@ type IOption = {
 type ISelectProps = {
   value: IOption['id'] | null;
   options: IOption[];
+  isEmptyValueAllowed?: boolean;
+  emptyValueText?: string;
   onChange: (value: IOption['id'] | null, option: IOption) => void;
 } & Omit<HTMLAttributes<HTMLSelectElement>, 'onChange'>;
 
 const Select: FC<ISelectProps> = props => {
-  const { value, options, onChange } = props;
+  const {
+    value,
+    options,
+    isEmptyValueAllowed,
+    emptyValueText,
+    onChange,
+  } = props;
 
   const [optionsMap, setOptionsMap] = useState<{
     [optionId: string]: ISelectProps['options'][number];
@@ -59,6 +67,11 @@ const Select: FC<ISelectProps> = props => {
         value={value !== null ? value : undefined}
         onChange={onSelect}
       >
+        {isEmptyValueAllowed && (
+          <NativeOption>
+            {emptyValueText}
+          </NativeOption>
+        )}
         {options.map((option) => (
           <NativeOption
             key={option.id}
@@ -70,7 +83,7 @@ const Select: FC<ISelectProps> = props => {
       </NativeSelect>
       <CustomSelect>
         <Value>
-          {selectedOption ? selectedOption.name : null}
+          {selectedOption ? selectedOption.name : emptyValueText}
         </Value>
         <Indicator>
           <ArrowIcon name="arrowDown" />

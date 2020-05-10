@@ -78,6 +78,7 @@ class DeliveryPoint extends PureComponent<IDeliveryPointProps> {
       weight,
       onChange,
       onInsert,
+      onRemove,
       ...otherProps
     } = this.props;
 
@@ -95,6 +96,8 @@ class DeliveryPoint extends PureComponent<IDeliveryPointProps> {
           <Select
             value={pointId}
             options={points}
+            isEmptyValueAllowed={!routeId}
+            emptyValueText="Select point"
             onChange={this.onChange}
           />
           {isRemovable && (
