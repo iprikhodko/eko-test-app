@@ -11,7 +11,7 @@ import {
   getCostCalculatorRoutes,
   getCostCalculatorResult,
   getCostCalculatorError,
-} from '../../redux/reducers/selectors';
+} from './selectors';
 import { IState } from '../../redux/store';
 
 const mapStateToProps = (state: IState) => ({

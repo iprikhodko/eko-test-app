@@ -49,7 +49,7 @@ const costCalculatorReducer: Reducer<ICostCalculatorState, ICostCalculatorAction
           ...state.data,
           [id]: {
             id,
-            pointId,
+            pointId: pointId || null,
           },
         },
       };

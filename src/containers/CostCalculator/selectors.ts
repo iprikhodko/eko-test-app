@@ -1,19 +1,20 @@
 import { createSelector } from 'reselect';
-import { IState } from '../store';
-import { getDeliveryRoutesDataAsArray } from './costCalculator/selectors';
-import { getRouteId } from './deliveryRoutes/utils';
+import { getPoints, getRoutes } from '../../redux/reducers/deliveryRoutes/selectors';
+import { IState } from '../../redux/store';
+import { getDeliveryRoutesDataAsArray } from '../../redux/reducers/costCalculator/selectors';
+import { getRouteId } from '../../redux/reducers/deliveryRoutes/utils';
 
 export const getCostCalculatorRoutes = createSelector<
   IState,
-  IState['deliveryRoutes']['points'],
-  IState['deliveryRoutes']['routes'],
+  ReturnType<typeof getPoints>,
+  ReturnType<typeof getRoutes>,
   ReturnType<typeof getDeliveryRoutesDataAsArray>,
   (ReturnType<typeof getDeliveryRoutesDataAsArray>[number] & {
     weight: number | null,
   })[]
 >(
-  ({ deliveryRoutes }) => deliveryRoutes.points,
-  ({ deliveryRoutes }) => deliveryRoutes.routes,
+  getPoints,
+  getRoutes,
   getDeliveryRoutesDataAsArray,
   (points, routes, multipleRoute) =>
     multipleRoute.map((point, index) => {

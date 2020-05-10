@@ -1,4 +1,3 @@
-import ACTIONS from '../../actions';
 import { IDeliveryPoint, IDeliveryRoute, IDeliveryRoutesState } from './types';
 import { addDeliveryPoint, addDeliveryRoute, IDeliveryRoutesActions } from './actions';
 import deliveryRoutesReducer from '.';
@@ -43,7 +42,7 @@ describe('delivery routes reducer', () => {
     });
   });
 
-  test(ACTIONS.ADD_DELIVERY_POINT, () => {
+  test('ADD_DELIVERY_POINT', () => {
     const point = {
       id: 'A',
       name: 'A',
@@ -61,7 +60,7 @@ describe('delivery routes reducer', () => {
     });
   });
 
-  test(ACTIONS.ADD_DELIVERY_ROUTE, () => {
+  test('ADD_DELIVERY_ROUTE', () => {
     const firstPoint = {
       id: 'A',
       name: 'A',
